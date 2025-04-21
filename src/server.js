@@ -29,4 +29,4 @@ const server = http.createServer(async (req, res) => {
   return res.writeHead(404).end('Rota não conhecida');
 });
 
-server.listen(3334);
+server.listen(3333);
