@@ -1,22 +1,5 @@
 import { Readable, Transform, Writable, Duplex } from 'node:stream';
 
-// class DuplexStream extends Duplex {
-//   _read() {
-
-//     setTimeout(() => {
-//       this.push('Hello');
-//       this.push('World');
-//       this.push('Sergio Teste');
-//       this.push('123');
-//     }, 1000);
-//   }
-
-//   _write(chunk, encoding, callback) {
-//     console.log(chunk.toString());
-//     callback();
-//   }
-// }
-
 class OneToHundredStream extends Readable {
   index = 1;
 

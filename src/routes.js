@@ -10,7 +10,12 @@ export const routes = [
     method: 'GET',
     path: BuildRoutePath('/users'),
     handler: (req, res) => {
-      const users = database.select('users');
+      const { search } = req.query;
+
+      const users = database.select('users', search ? {
+        name: search,
+        email: search
+      } : null);
       return res.end(JSON.stringify(users));
     }
   },
@@ -19,7 +24,6 @@ export const routes = [
     path: BuildRoutePath('/users'),
     handler: (req, res) => {
       const { name, email } = req.body;
-      console.log(name, email);
       if (name === undefined || email === undefined) {
         return res.writeHead(400).end('JSON body incorreto ou não informado');
       } else {
@@ -42,6 +46,22 @@ export const routes = [
       database.delete('users', id);
 
       return res.writeHead(200).end('Usuário removido');
+    }
+  },
+  {
+    method: 'PUT',
+    path: BuildRoutePath('/users/:id'),
+    handler: (req, res) => {
+      const { id } = req.params;
+      const { name, email } = req.body;
+
+      if (name === undefined || email === undefined) {
+        return res.writeHead(400).end('JSON body incorreto ou não informado');
+      } else {
+        database.update('users', id, { name, email });
+        return res.writeHead(200).end('Usuário Atualizado');
+      }
+
     }
   }
 ];
